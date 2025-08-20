@@ -22,7 +22,7 @@ Our model achieves **R² ≈ 0.99** and **low MAE/MSE**, outperforming classical
 - 📊 **Evaluation Metrics:** MAE, MSE, R²  
 - 📈 **Visual Insights:** Correlation heatmaps, feature importance, prediction plots  
 - ⚡ **High Accuracy:** R² > 0.99 on test data  
-- 📑 Full report available in [`docs/paper&diagrams.pdf`](docs/paper&diagrams.pdf)
+- 📑 Full report available in [`docs/report.pdf`](docsreport.pdf)
 
 ---
 
@@ -38,7 +38,7 @@ Building-Energy-Load-Prediction/
 │   ├── evaluate_model.py     # Script to evaluate trained models
 │
 ├── 📁 docs/
-│   └── paper&diagrams.pdf    # Full project report with diagrams & results
+│   └── report.pdf    # Full project report with diagrams & results
 │
 ├── requirements.txt          # Required dependencies
 ├── README.md                # Project documentation
@@ -123,12 +123,12 @@ This generates:
 
 ## 📄 Full Report
 For a complete explanation of the methodology, results, and diagrams, check:  
-📂 [`docs/paper&diagrams.pdf`](docs/paper&diagrams.pdf)
+📂 [`docs/report.pdf`](docs/report.pdf)
 
 ---
 
 ## 📬 Contact
-**Aya Alaa Abd Elsalam Motwea**  
+**Aya Alaa Motwea**  
 AI Engineer | Machine Learning Researcher  
 📧 Email: yoyomotawaa@gmail.com  
 🔗 [LinkedIn](https://www.linkedin.com/in/aya-motawea-661633251/)  
