@@ -130,6 +130,6 @@ For a complete explanation of the methodology, results, and diagrams, check:
 ## 📬 Contact
 **Aya Alaa Motwea**  
 AI Engineer | Machine Learning Researcher  
-📧 Email: yoyomotawaa@gmail.com  
+📧 Email:Aya.Motawea.AI@gmail.com 
 🔗 [LinkedIn](https://www.linkedin.com/in/aya-motawea-661633251/)  
 💻 [GitHub](https://github.com/ayamotawea)
