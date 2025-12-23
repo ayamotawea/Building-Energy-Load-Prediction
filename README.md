@@ -22,7 +22,7 @@ Our model achieves **R² ≈ 0.99** and **low MAE/MSE**, outperforming classical
 - 📊 **Evaluation Metrics:** MAE, MSE, R²  
 - 📈 **Visual Insights:** Correlation heatmaps, feature importance, prediction plots  
 - ⚡ **High Accuracy:** R² > 0.99 on test data  
-- 📑 Full report available in [`docs/report.pdf`](docsreport.pdf)
+- 📑 Full report available in [`docs/report.pdf`](docs/report.pdf)
 
 ---
 
