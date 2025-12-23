@@ -62,7 +62,7 @@ The dataset comes from **Kaggle**:
 - **8 input features**
 - **2 outputs:** Heating Load (HL) & Cooling Load (CL)
 
-> **Note:** `ENB2012_data.csv` is included, but processed/split datasets are generated via the preprocessing notebook.
+> **Note:** `ENB2012_data.csv` is included, but processed datasets are generated via the training script.
 
 ---
 
