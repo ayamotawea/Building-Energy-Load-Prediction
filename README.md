@@ -31,18 +31,25 @@ Our model achieves **R² ≈ 0.99** and **low MAE/MSE**, outperforming classical
 Building-Energy-Load-Prediction/
 │
 ├── 📁 notebook/
-│   └── energy-consumption-in-smart-cities.ipynb   # Jupyter notebook with analysis & training
+│   └── Preprocessing_EDA_data.ipynb # EDA and preprocessing exploration only
 │
 ├── 📁 src/
-│   ├── train_model.py        # Script to train XGBoost models for HL & CL
-│   ├── evaluate_model.py     # Script to evaluate trained models
+│   ├── train_model.py        # Train XGBoost models for HL & CL
+│   ├── evaluate_model.py     # Evaluate trained models on any dataset
+│   ├── random_forest.py      # Optional alternative model
+│   └── xgboost_model.py      # XGBoost implementation
 │
 ├── 📁 docs/
-│   └── report.pdf    # Full project report with diagrams & results
+│   └── report.pdf            # Full project report with diagrams & results
 │
-├── requirements.txt          # Required dependencies
-├── README.md                # Project documentation
-└── .gitignore               # Ignore unnecessary files & folders
+├── 📁 data/                  # Processed datasets (ignored in GitHub)
+├── 📁 models/                # Saved trained model and scaler (ignored in GitHub)
+├── ENB2012_data.csv          # Raw Kaggle dataset
+├── BuildingEnergy.py         # Pydantic models for FastAPI responses
+├── app.py                    # FastAPI app to serve predictions
+├── requirements.txt          # Dependencies
+├── README.md                 # Project documentation
+└── .gitignore                # Ignore unnecessary files & folders
 ```
 
 ---
@@ -55,7 +62,7 @@ The dataset comes from **Kaggle**:
 - **8 input features**
 - **2 outputs:** Heating Load (HL) & Cooling Load (CL)
 
-> **Note:** The dataset is **not uploaded** to this repository. Please download it manually from Kaggle.
+> **Note:** `ENB2012_data.csv` is included, but processed/split datasets are generated via the preprocessing notebook.
 
 ---
 
@@ -70,37 +77,67 @@ pip install -r requirements.txt
 
 ## 🚀 How to Run the Project
 
-### **Option 1 — Using the Jupyter Notebook**
+### **Step 1 — Explore Data (Optional)**
 ```bash
-jupyter notebook notebook/energy-consumption-in-smart-cities.ipynb
+jupyter notebook notebook/Preprocessing_EDA_data.ipynb
 ```
-- Open the notebook and **Run All**.
-- Produces visualizations, training results, and evaluation metrics.
+- Perform EDA & preprocessing to understand data patterns
+- This notebook is only for exploration; training should be done via script
 
 ---
 
-### **Option 2 — Using Python Scripts**
+### **Step 2 — Train Model**
 
-#### **Step 1 — Train Models**
-Since trained models are **not included** in the repo, you must **train them first**:
 ```bash
-python src/train_model.py --data_path path_to_dataset.csv --target HL --outdir models_hl
-python src/train_model.py --data_path path_to_dataset.csv --target CL --outdir models_cl
+python src/train_model.py
 ```
-This will:
-- Train XGBoost models for HL & CL.
-- Save models (`model.pkl`), metrics, and plots in `models_hl/` and `models_cl/`.
+- Trains XGBoost models for Heating Load (HL) and Cooling Load (CL)
+- Saves processed datasets in data/ and trained model & scaler in models/
+- Fully reproducible and suitable for production
 
-#### **Step 2 — Evaluate Models**
-After training, evaluate the models:
+---
+
+### **Step 3 — Evaluate Model (Optional)**
+
 ```bash
-python src/evaluate_model.py --data_path path_to_dataset.csv --model_path models_hl/model.pkl --target HL
-python src/evaluate_model.py --data_path path_to_dataset.csv --model_path models_cl/model.pkl --target CL
-```
-This generates:
-- Performance metrics (MAE, MSE, R²)
-- Actual vs Predicted plots
+python src/evaluate_model.py --save_metrics
 
+```
+- Loads trained model and processed datasets
+- Computes MAE, MSE, R² for train and test sets
+- Prints metrics to terminal and optionally saves them to CSV
+
+---
+### **Step 4 — Run FastAPI for test**
+
+```bash
+uvicorn app:app --reload
+```
+- Use POST request to /predict with JSON input (see BuildingEnergy.py for schema)
+- Receive predictions as JSON response
+
+```bash
+Example input:
+{
+    "Relative_Compactness": 0.8,
+    "Surface_Area": 600,
+    "Wall_Area": 300,
+    "Roof_Area": 200,
+    "Overall_Height": 7,
+    "Orientation": 2,
+    "Glazing_Area": 0.1,
+    "Glazing_Area_Distribution": 3
+}
+
+```
+Example response:
+```bash
+{
+    "Heating_Load": 15.23,
+    "Cooling_Load": 22.14
+}
+
+```
 ---
 
 ## 📊 Results
@@ -129,7 +166,7 @@ For a complete explanation of the methodology, results, and diagrams, check:
 
 ## 📬 Contact
 **Aya Alaa Motwea**  
-AI Engineer | Machine Learning Researcher  
+AI Engineer | ML, DL, CV, GenAI Specialist 
 📧 Email:Aya.Motawea.AI@gmail.com 
 🔗 [LinkedIn](https://www.linkedin.com/in/aya-motawea-661633251/)  
 💻 [GitHub](https://github.com/ayamotawea)

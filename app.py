@@ -8,8 +8,8 @@ import pandas as pd
 # 2. Create the app object
 app = FastAPI()
 # Load saved model and scaler
-model = joblib.load("model.pkl")
-scaler = joblib.load("scaler.pkl")
+model = joblib.load("models/model.pkl")
+scaler = joblib.load("models/scaler.pkl")
 
 # mapping: user input name -> training column
 feature_map = {
