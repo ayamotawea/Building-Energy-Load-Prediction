@@ -49,7 +49,7 @@ Building-Energy-Load-Prediction/
 
 ## 🧩 Dataset
 The dataset comes from **Kaggle**:  
-🔗 [Energy Efficiency Dataset](https://www.kaggle.com/datasets/elikplim/energy-efficiency-dataset)
+🔗 [Energy Efficiency Dataset](https://www.kaggle.com/datasets/elikplim/eergy-efficiency-dataset)
 
 - **768 residential buildings**
 - **8 input features**

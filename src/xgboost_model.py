@@ -2,26 +2,30 @@ import mlflow
 import mlflow.sklearn
 import numpy as np
 import matplotlib.pyplot as plt
-
+import dagshub
 from xgboost import XGBRegressor
 from sklearn.multioutput import MultiOutputRegressor
 from sklearn.metrics import mean_squared_error, mean_absolute_error, r2_score
+import pandas as pd
+from pathlib import Path
 
 import warnings
 warnings.filterwarnings('ignore')
 
 
-dagshub.init(repo_owner='ayamotawea', repo_name='test_daghub', mlflow=True)
+dagshub.init(repo_owner='ayamotawea', repo_name='Building-Energy-Load-Prediction', mlflow=True)
 
 def train_xgboost(
     X_train, X_test,
     y_train, y_test,
     plot_name,
-    n_estimators=300,
-    max_depth=6,
-    learning_rate=0.05,
-    subsample=0.8,
-    colsample_bytree=0.8
+    n_estimators=100,
+    max_depth=3,
+    learning_rate=0.1,
+    subsample=1,
+    colsample_bytree=1,
+    reg_lambda=1,
+    reg_alpha=0
 ):
 
 
@@ -40,6 +44,8 @@ def train_xgboost(
                 subsample=subsample,
                 colsample_bytree=colsample_bytree,
                 objective="reg:squarederror",
+                reg_lambda=reg_lambda,
+                reg_alpha=reg_alpha,
                 random_state=45,
                 n_jobs=-1
             )
@@ -67,7 +73,8 @@ def train_xgboost(
             "max_depth": max_depth,
             "learning_rate": learning_rate,
             "subsample": subsample,
-            "colsample_bytree": colsample_bytree
+            "colsample_bytree": colsample_bytree,
+            
         })
 
         # ---- Log metrics ----
@@ -124,12 +131,17 @@ def train_xgboost(
 
 if __name__ == '__main__':
     
-    X_train=pd.read_csv('Building-Energy-Load-Prediction/data/X_train.csv')
-    y_train=pd.read_csv('Building-Energy-Load-Prediction/data/X_train.csv')
-    X_test=pd.read_csv('Building-Energy-Load-Prediction/data/X_train.csv')
-    y_test=pd.read_csv('Building-Energy-Load-Prediction/data/X_train.csv')
-    
-    train_model(X_train,X_test, y_train,y_test,'all_features',n_estimators=150, learning_rate=0.08, max_depth=10)
-    train_model(X_train,X_test, y_train,y_test,'all_features',n_estimators=175, learning_rate=0.2, max_depth=5,colsample_bytree= 1,subsample= 0.8)
-    train_model(X_train,X_test, y_train,y_test,'all_features',reg_lambda=1.0,reg_alpha=0.5,n_estimators=175, learning_rate=0.2, max_depth=5,colsample_bytree= 1,subsample= 0.8)
+    # src/train.py → project root
+    PROJECT_ROOT = Path(__file__).resolve().parents[1]
+
+    DATA_DIR = PROJECT_ROOT / "data"
+
+    X_train = pd.read_csv(DATA_DIR / "X_train_processed.csv")
+    y_train = pd.read_csv(DATA_DIR / "y_train.csv")
+    X_test  = pd.read_csv(DATA_DIR / "X_test_processed.csv")
+    y_test  = pd.read_csv(DATA_DIR / "y_test.csv")
+
+    train_xgboost(X_train,X_test, y_train,y_test,'all_features',n_estimators=150, learning_rate=0.08, max_depth=10)
+    train_xgboost(X_train,X_test, y_train,y_test,'all_features',n_estimators=175, learning_rate=0.2, max_depth=5,colsample_bytree= 1,subsample= 0.8)
+    train_xgboost(X_train,X_test, y_train,y_test,'all_features',reg_lambda=1.0,reg_alpha=0.5,n_estimators=175, learning_rate=0.2, max_depth=5,colsample_bytree= 1,subsample= 0.8)
 

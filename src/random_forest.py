@@ -4,12 +4,13 @@ from sklearn.metrics import mean_squared_error, mean_absolute_error, r2_score
 import numpy as np
 import matplotlib.pyplot as plt
 import mlflow
-
+import dagshub
+import pandas as pd
 import warnings
 warnings.filterwarnings('ignore')
 
 
-dagshub.init(repo_owner='ayamotawea', repo_name='test_daghub', mlflow=True)
+dagshub.init(repo_owner='ayamotawea', repo_name='Building-Energy-Load-Prediction', mlflow=True)
 
 def train_model(X_train, X_test, y_train, y_test, plot_name):
 
