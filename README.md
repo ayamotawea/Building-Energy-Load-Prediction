@@ -165,7 +165,7 @@ For a complete explanation of the methodology, results, and diagrams, check:
 ---
 
 ## 📬 Contact
-**Aya Alaa Motwea**  
+**Aya Alaa Motawea**  
 AI Engineer | ML, DL, CV, GenAI Specialist 
 
 📧 Email: Aya.Motawea.AI@gmail.com 
